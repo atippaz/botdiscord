@@ -52,10 +52,14 @@ client.on('messageCreate',async (message) => {
   }
   }
   if (message.content.includes('!shake') ) {
+    message.reply('waiting . . .')
+
     const regex = /!shake\s+<@(\d+)>/;
     const match = message.content.match(regex);
 
   if (match) {
+  message.reply('shaking . . .')
+
     const userId = match[1];
     const voiceStates = message.guild.voiceStates.cache.array();
 
