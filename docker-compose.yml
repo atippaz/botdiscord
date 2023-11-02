@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  serverapi:
+    build: .
+    environment:
+      BOT_TOKEN: 
+    networks:
+      - servernetwork
+      
+networks:
+  servernetwork:
+    driver: bridge
