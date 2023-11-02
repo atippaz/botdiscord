@@ -61,29 +61,34 @@ client.on('messageCreate',async (message) => {
   message.reply('shaking . . .')
 
     const userId = match[1];
-    const voiceStates = message.guild.voiceStates.cache.array();
+    const voiceStates = message.guild.voiceStates.cache.toJSON();
+
 
     // ค้นหาผู้ใช้ที่ตรงกับ ID ใน voiceStates
     const userToMove = voiceStates.find((voiceState) => voiceState.member.id === userId);
-
     if (userToMove) {
       // ค้นหาชาแนลเสียงที่คุณต้องการย้ายผู้ใช้
-      const voiceChannels = message.guild.channels.cache.filter((channel) => channel.type === 'GUILD_VOICE');
-
+      const voiceChannels = message.guild.channels.cache.filter((channel) => channel.type ==2);
+      console.log(message.guild.channels.cache);
+      console.log('***');
+      console.log(voiceChannels);
       if (voiceChannels.size > 1) {
+        console.log('move');
         // ทำการย้ายผู้ใช้ไปยังชาแนลใหม่ 5 ครั้ง
         for (let i = 0; i < 10; i++) {
           const newChannel = voiceChannels.random();
 
           // ย้ายผู้ใช้ไปยังชาแนลใหม่
           await userToMove.setChannel(newChannel);
+          console.log(`move ${userToMove} to ${newChannel}`);
 
           // รอเวลาบางครู่
-          await new Promise((resolve) => setTimeout(resolve, 500)); // รอ 5 วินาที
+          await new Promise((resolve) => setTimeout(resolve, 1200)); // รอ 5 วินาที
 
           // ย้ายผู้ใช้กลับไปยังชาแนลเดิม
           await userToMove.setChannel(userToMove.channel);
         }
+        return
       }
     } else {
       message.reply('ไม่พบผู้ใช้นี้ในห้องเสียง');
@@ -92,7 +97,7 @@ client.on('messageCreate',async (message) => {
 }
   
   console.log(`ข้อความจาก ${message.author.tag}: ${message.content}`);
-  message.reply('hi sir')
+  // message.reply('hi sir')
 });
 
 client.login(process.env.BOT_TOKEN);
