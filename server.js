@@ -16,7 +16,10 @@ const commandPrefix = '!'
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
 });
-
+client.on('guildCreate', (guild) => {
+  console.log(`บอทเข้าร่วมเซิร์ฟเวอร์: ${guild.name}`);
+  // ทำสิ่งที่คุณต้องการเมื่อบอทเข้าร่วมเซิร์ฟเวอร์ใหม่
+});
 client.on('messageCreate', (message) => {
   if (message.author.bot) return; // ไม่ตอบกลับถ้าข้อความเป็นของบอท
 
